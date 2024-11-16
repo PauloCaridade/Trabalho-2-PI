@@ -1,5 +1,3 @@
-// grafo.h
-
 #ifndef GRAFO_H
 #define GRAFO_H
 
@@ -34,7 +32,7 @@ typedef struct {
 
 // Funções para manipulação do grafo
 Grafo* inicializa_grafo(const char* pontosBin, const char* vizinhosBin);
-void insere_arestas(Grafo* grafo);
+void listar_pontos(Grafo* grafo);
 void dijkstra(Grafo* grafo, char origem, char destino);
 void gerar_relatorio(Grafo* grafo, char origem, char destino, const char* arquivoRelatorio);
 

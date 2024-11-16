@@ -14,7 +14,7 @@ void gerar_binario_pontos(const char* arquivoTexto, const char* arquivoBin) {
     Ponto ponto;
 
     // Primeira leitura para contar o número de pontos
-    while (fscanf(txt, " %c %f %f %s", &ponto.id, &ponto.x, &ponto.y, ponto.rua1) == 4) {
+    while (fscanf(txt, " %c %f %f %s", &ponto.id, &ponto.x, &ponto.y, ponto.rua1,ponto.rua2) == 5) {
         numPontos++;
     }
 
@@ -25,7 +25,7 @@ void gerar_binario_pontos(const char* arquivoTexto, const char* arquivoBin) {
     fwrite(&numPontos, sizeof(int), 1, bin);
 
     // Segunda leitura para gravar cada ponto no arquivo binário
-    while (fscanf(txt, " %c %f %f %s", &ponto.id, &ponto.x, &ponto.y, ponto.rua1) == 4) {
+    while (fscanf(txt, " %c %f %f %s", &ponto.id, &ponto.x, &ponto.y, ponto.rua1,ponto.rua2) == 5) {
         fwrite(&ponto, sizeof(Ponto), 1, bin);
     }
 

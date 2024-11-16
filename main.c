@@ -14,9 +14,7 @@ int main(int argc, char* argv[]) {
     Grafo* grafo = inicializa_grafo(pontosBin, vizinhosBin);
      listar_pontos(grafo);
 
-    // Solicita o ponto de origem e destino
-    char origem = solicitar_ponto("origem", grafo);
-    char destino = solicitar_ponto("destino", grafo);
+ 
     
     dijkstra(grafo, origem, destino);
     gerar_relatorio(grafo, origem, destino, "relatorio.txt");
