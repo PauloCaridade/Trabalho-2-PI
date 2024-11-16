@@ -6,20 +6,17 @@
 #include <math.h>
 #include <string.h>
 
-#define MAX_VIZINHOS 4
-#define MAX_NOME_RUA 50
-
 typedef struct {
     char id;
     float x, y;
-    char rua1[MAX_NOME_RUA];
-    char rua2[MAX_NOME_RUA];
+    char rua1[50];
+    char rua2[50];
 } Ponto;
 
 typedef struct {
     char origem;
     char destino;
-    char nomeRua[MAX_NOME_RUA];
+    char nomeRua[50];
     float distancia;
 } Aresta;
 
@@ -30,10 +27,10 @@ typedef struct {
     Aresta* arestas;
 } Grafo;
 
-// Funções para manipulação do grafo
-Grafo* inicializa_grafo(const char* pontosBin, const char* vizinhosBin);
+
+Grafo* inicio_grafo(const char* pontosBin, const char* vizinhosBin);
 void listar_pontos(Grafo* grafo);
 void dijkstra(Grafo* grafo, char origem, char destino);
-void gerar_relatorio(Grafo* grafo, char origem, char destino, const char* arquivoRelatorio);
-void exibir_instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemIdx);
+void instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemIdx);
+
 #endif

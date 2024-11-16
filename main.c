@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     char origem = argv[3][0];
     char destino = argv[4][0];
 
-    Grafo* grafo = inicializa_grafo(pontosBin, vizinhosBin);
+    Grafo* grafo = inicio_grafo(pontosBin, vizinhosBin);
     listar_pontos(grafo);
     dijkstra(grafo, origem, destino);
 

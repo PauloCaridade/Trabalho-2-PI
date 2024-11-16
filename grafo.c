@@ -2,7 +2,13 @@
 
 #define inf 9999999
 
-Grafo* inicializa_grafo(const char* pontosBin, const char* vizinhosBin) {
+
+float dist_ec(Ponto* p1, Ponto* p2) {
+    return sqrt(pow(p2->x - p1->x, 2) + pow(p2->y - p1->y, 2));
+}
+
+Grafo* inicio_grafo(const char* pontosBin, const char* vizinhosBin) 
+{
     Grafo* grafo = (Grafo*)malloc(sizeof(Grafo));
     if (!grafo) {
         printf("Erro ao alocar memória para o grafo.\n");
@@ -34,13 +40,19 @@ Grafo* inicializa_grafo(const char* pontosBin, const char* vizinhosBin) {
     fread(grafo->arestas, sizeof(Aresta), grafo->numArestas, fileVizinhos);
     fclose(fileVizinhos);
 
+    for (int i = 0; i < grafo->numArestas; i++) {
+        Aresta* aresta = &grafo->arestas[i];
+        Ponto* p1 = &grafo->pontos[aresta->origem - 'A'];
+        Ponto* p2 = &grafo->pontos[aresta->destino - 'A'];
+        aresta->distancia = dist_ec(p1, p2);
+    }
+
     return grafo;
 }
 
 void listar_pontos(Grafo* grafo) {
-    printf("Pontos disponiveis:\n");
+    printf("Pontos disponíveis:\n");
     for (int i = 0; i < grafo->numPontos; i++) {
-        // Certifique-se de que os nomes das ruas e IDs de pontos estão corretos
         printf("%c - %s e %s\n", grafo->pontos[i].id, grafo->pontos[i].rua1, grafo->pontos[i].rua2);
     }
 }
@@ -85,10 +97,9 @@ void dijkstra(Grafo* grafo, char origem, char destino) {
 
     int destinoIdx = destino - 'A';
     if (dist[destinoIdx] == INFINITY) {
-        printf("Nao ha caminho entre %c e %c.\n", origem, destino);
+        printf("Não há caminho entre %c e %c.\n", origem, destino);
     } else {
-        printf("Distancia minima: %.2f\n", dist[destinoIdx]);
-        exibir_instrucoes(grafo, anterior, destinoIdx, origemIdx);
+        instrucoes(grafo, anterior, destinoIdx, origemIdx);
     }
 
     free(dist);
@@ -96,35 +107,27 @@ void dijkstra(Grafo* grafo, char origem, char destino) {
     free(visitado);
 }
 
-void gerar_relatorio(Grafo* grafo, char origem, char destino, const char* arquivoRelatorio) {
-    FILE* arquivo = fopen(arquivoRelatorio, "w");
-    if (!arquivo) {
-        printf("Erro ao criar o relatório.\n");
-        return;
-    }
-    fprintf(arquivo, "Relatório de caminho entre %c e %c.\n", origem, destino);
-    fclose(arquivo);
-}
 
-
-void exibir_instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemIdx) {
+void instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemIdx) {
     if (anterior[destinoIdx] == -1) {
-        printf("Nao ha caminho entre %c e %c.\n", grafo->pontos[origemIdx].id, grafo->pontos[destinoIdx].id);
+        printf("Não há caminho entre %c e %c.\n", grafo->pontos[origemIdx].id, grafo->pontos[destinoIdx].id);
         return;
     }
 
-    printf("Para realizar o percurso entre o ponto %c (%s com %s) e o ponto %c (%s com %s), faca os seguintes movimentos:\n",
+    printf("Ponto de origem: %c\n", grafo->pontos[origemIdx].id);
+    printf("Ponto de destino: %c\n", grafo->pontos[destinoIdx].id);
+    printf("Para realizar o percurso entre o ponto %c (Rua %s com Rua %s) e o ponto %c (Rua %s com Rua %s), faca os seguintes movimentos:\n",
            grafo->pontos[origemIdx].id, grafo->pontos[origemIdx].rua1, grafo->pontos[origemIdx].rua2,
            grafo->pontos[destinoIdx].id, grafo->pontos[destinoIdx].rua1, grafo->pontos[destinoIdx].rua2);
 
     int atual = destinoIdx;
     int passos = 1;
 
+   
     while (atual != origemIdx) {
         int anteriorIdx = anterior[atual];
         Aresta* aresta = NULL;
 
-        // Encontrar a aresta que conecta 'anteriorIdx' e 'atual'
         for (int i = 0; i < grafo->numArestas; i++) {
             if (grafo->arestas[i].origem == grafo->pontos[anteriorIdx].id &&
                 grafo->arestas[i].destino == grafo->pontos[atual].id) {
@@ -134,12 +137,20 @@ void exibir_instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemId
         }
 
         if (aresta) {
-            // Decisão simples para virar à direita ou à esquerda com base na ordem de ruas
-            // (Este critério pode ser melhorado dependendo da lógica do seu mapa)
-            if (strcmp(grafo->pontos[atual].rua1, aresta->nomeRua) == 0) {
-                printf("(%d) No cruzamento da %s com a %s, vire a direita.\n", passos, grafo->pontos[atual].rua1, grafo->pontos[atual].rua2);
+           
+            if (strncmp(grafo->pontos[atual].rua1, aresta->nomeRua,4 ) == 0) {
+               
+                printf("(%d) Siga em frente pela Rua %s ate o cruzamento com a Rua %s\n", passos,
+                       grafo->pontos[atual].rua1, grafo->pontos[atual].rua2);
             } else {
-                printf("(%d) No cruzamento da %s com a %s, vire a esquerda.\n", passos, grafo->pontos[atual].rua1, grafo->pontos[atual].rua2);
+                
+                if (strncmp(grafo->pontos[atual].rua2, aresta->nomeRua,4 ) == 0) {
+                    printf("(%d) No cruzamento da Rua %s com a Rua %s, vire a direita\n", passos,
+                           grafo->pontos[atual].rua1, grafo->pontos[atual].rua2);
+                } else {
+                    printf("(%d) No cruzamento da Rua %s com a Rua %s, vire a esquerda\n", passos,
+                           grafo->pontos[atual].rua1, grafo->pontos[atual].rua2);
+                }
             }
             passos++;
         }
@@ -148,3 +159,4 @@ void exibir_instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemId
 
     printf("Boa viagem!\n");
 }
+
