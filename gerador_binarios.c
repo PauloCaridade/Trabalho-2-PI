@@ -76,6 +76,6 @@ int main(int argc, char* argv[]) {
     gerar_binario_pontos(argv[1], "pontos.bin");
     gerar_binario_vizinhos(argv[2], "vizinhos.bin");
 
-    printf("Arquivos binários gerados com sucesso.\n");
+    printf("Os arquivos binarios foram gerados sem erros.\n");
     return 0;
 }
