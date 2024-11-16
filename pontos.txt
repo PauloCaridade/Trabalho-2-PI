@@ -9,31 +9,31 @@ Rua Lavanda
 C 
 50.0 60.0 
 Rua Alecrim 
-Rua Hortênsia 
+Rua Hortensia 
 D 
 80.0 60.0 
 Rua Alecrim 
-Rua Bromélia 
+Rua Bromelia 
 E 
 50.0 50.0 
-Rua Jacarandá 
-Rua Hortênsia 
+Rua Jacaranda 
+Rua Hortensia 
 F 
 80.0 50.0 
-Rua Jacarandá 
-Rua Bromélia 
+Rua Jacaranda 
+Rua Bromelia 
 G 
 10.0 30.0 
-Rua Camélia 
+Rua Camelia 
 Rua Primavera 
 H 
 30.0 30.0 
-Rua Camélia 
+Rua Camelia 
 Rua Lavanda 
 I 
 50.0 30.0 
-Rua Camélia 
-Rua Hortênsia 
+Rua Camelia 
+Rua Hortensia 
 J 
 10.0 5.0 
 Rua Margarida 
@@ -41,8 +41,8 @@ Rua Primavera
 K 
 50.0 5.0 
 Rua Margarida 
-Rua Hortênsia 
+Rua Hortensia 
 L 
 80.0 5.0 
 Rua Margarida 
-Rua Bromélia
+Rua Bromelia

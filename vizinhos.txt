@@ -15,22 +15,22 @@ D
 Rua Alecrim 
 D 
 F 
-Rua Bromélia 
+Rua Bromelia 
 E 
 C 
-Rua Hortênsia 
+Rua Hortensia 
 E 
 F 
-Rua Jacarandá 
+Rua Jacaranda 
 F 
 D 
-Rua Bromélia 
+Rua Bromelia 
 F 
 E 
-Rua Jacarandá 
+Rua Jacaranda 
 F 
 L 
-Rua Bromélia 
+Rua Bromelia 
 G 
 J 
 Rua Primavera 
@@ -39,13 +39,13 @@ B
 Rua Lavanda 
 H 
 G 
-Rua Camélia 
+Rua Camelia 
 H 
 I 
-Rua Camélia 
+Rua Camelia 
 I 
 E 
-Rua Hortênsia 
+Rua Hortensia 
 J 
 K 
 Rua Margarida 
@@ -54,7 +54,7 @@ J
 Rua Margarida 
 K 
 I 
-Rua Hortênsia 
+Rua Hortensia 
 K 
 J 
 Rua Margarida 
