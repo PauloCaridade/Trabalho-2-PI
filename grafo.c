@@ -40,6 +40,7 @@ Grafo* inicializa_grafo(const char* pontosBin, const char* vizinhosBin) {
 void listar_pontos(Grafo* grafo) {
     printf("Pontos disponíveis:\n");
     for (int i = 0; i < grafo->numPontos; i++) {
+        // Certifique-se de que os nomes das ruas e IDs de pontos estão corretos
         printf("%c - %s e %s\n", grafo->pontos[i].id, grafo->pontos[i].rua1, grafo->pontos[i].rua2);
     }
 }
@@ -116,7 +117,6 @@ void exibir_instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemId
            grafo->pontos[origemIdx].id, grafo->pontos[origemIdx].rua1, grafo->pontos[origemIdx].rua2,
            grafo->pontos[destinoIdx].id, grafo->pontos[destinoIdx].rua1, grafo->pontos[destinoIdx].rua2);
 
-    // Reconstruir o caminho do destino até a origem
     int atual = destinoIdx;
     int passos = 1;
 
@@ -134,8 +134,13 @@ void exibir_instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemId
         }
 
         if (aresta) {
-            printf("(%d) Siga em frente pela %s até o cruzamento com a %s.\n",
-                   passos, aresta->nomeRua, grafo->pontos[atual].rua1);
+            // Decisão simples para virar à direita ou à esquerda com base na ordem de ruas
+            // (Este critério pode ser melhorado dependendo da lógica do seu mapa)
+            if (strcmp(grafo->pontos[atual].rua1, aresta->nomeRua) == 0) {
+                printf("(%d) No cruzamento da %s com a %s, vire à direita.\n", passos, grafo->pontos[atual].rua1, grafo->pontos[atual].rua2);
+            } else {
+                printf("(%d) No cruzamento da %s com a %s, vire à esquerda.\n", passos, grafo->pontos[atual].rua1, grafo->pontos[atual].rua2);
+            }
             passos++;
         }
         atual = anteriorIdx;

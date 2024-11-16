@@ -14,7 +14,7 @@ void gerar_binario_pontos(const char* arquivoTexto, const char* arquivoBin) {
     Ponto ponto;
 
     // Primeira leitura para contar o número de pontos
-    while (fscanf(txt, " %c %f %f %s", &ponto.id, &ponto.x, &ponto.y, ponto.rua1,ponto.rua2) == 5) {
+    while (fscanf(txt, " %c %f %f %[^\n] %[^\n]", &ponto.id, &ponto.x, &ponto.y, ponto.rua1, ponto.rua2) == 5) {
         numPontos++;
     }
 
@@ -25,7 +25,7 @@ void gerar_binario_pontos(const char* arquivoTexto, const char* arquivoBin) {
     fwrite(&numPontos, sizeof(int), 1, bin);
 
     // Segunda leitura para gravar cada ponto no arquivo binário
-    while (fscanf(txt, " %c %f %f %s", &ponto.id, &ponto.x, &ponto.y, ponto.rua1,ponto.rua2) == 5) {
+    while (fscanf(txt, " %c %f %f %[^\n] %[^\n]", &ponto.id, &ponto.x, &ponto.y, ponto.rua1, ponto.rua2) == 5) {
         fwrite(&ponto, sizeof(Ponto), 1, bin);
     }
 
@@ -47,7 +47,7 @@ void gerar_binario_vizinhos(const char* arquivoTexto, const char* arquivoBin) {
     Aresta aresta;
 
     // Primeira leitura para contar o número de arestas
-    while (fscanf(txt, " %c %c %s", &aresta.origem, &aresta.destino, aresta.nomeRua) == 3) {
+    while (fscanf(txt, " %c %c %[^\n]", &aresta.origem, &aresta.destino, aresta.nomeRua) == 3) {
         numArestas++;
     }
 
@@ -58,7 +58,7 @@ void gerar_binario_vizinhos(const char* arquivoTexto, const char* arquivoBin) {
     fwrite(&numArestas, sizeof(int), 1, bin);
 
     // Segunda leitura para gravar cada aresta no arquivo binário
-    while (fscanf(txt, " %c %c %s", &aresta.origem, &aresta.destino, aresta.nomeRua) == 3) {
+    while (fscanf(txt, " %c %c %[^\n]", &aresta.origem, &aresta.destino, aresta.nomeRua) == 3) {
         fwrite(&aresta, sizeof(Aresta), 1, bin);
     }
 
