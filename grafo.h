@@ -35,5 +35,5 @@ Grafo* inicializa_grafo(const char* pontosBin, const char* vizinhosBin);
 void listar_pontos(Grafo* grafo);
 void dijkstra(Grafo* grafo, char origem, char destino);
 void gerar_relatorio(Grafo* grafo, char origem, char destino, const char* arquivoRelatorio);
-
+void exibir_instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemIdx);
 #endif

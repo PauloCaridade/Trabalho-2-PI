@@ -51,12 +51,12 @@ void dijkstra(Grafo* grafo, char origem, char destino) {
     int* visitado = (int*)calloc(n, sizeof(int));
 
     for (int i = 0; i < n; i++) {
-        dist[i] = inf;
+        dist[i] = INFINITY;
         anterior[i] = -1;
     }
 
-    int idxOrigem = origem - 'A';
-    dist[idxOrigem] = 0;
+    int origemIdx = origem - 'A';
+    dist[origemIdx] = 0;
 
     for (int i = 0; i < n; i++) {
         int u = -1;
@@ -66,7 +66,7 @@ void dijkstra(Grafo* grafo, char origem, char destino) {
             }
         }
 
-        if (dist[u] == inf) break;
+        if (dist[u] == INFINITY) break;
 
         visitado[u] = 1;
         for (int j = 0; j < grafo->numArestas; j++) {
@@ -82,16 +82,12 @@ void dijkstra(Grafo* grafo, char origem, char destino) {
         }
     }
 
-    int idxDestino = destino - 'A';
-    if (dist[idxDestino] == inf) {
+    int destinoIdx = destino - 'A';
+    if (dist[destinoIdx] == INFINITY) {
         printf("Não há caminho entre %c e %c.\n", origem, destino);
     } else {
-        printf("Distância mínima: %.2f\n", dist[idxDestino]);
-        printf("Caminho: ");
-        for (int v = idxDestino; v != -1; v = anterior[v]) {
-            printf("%c ", 'A' + v);
-        }
-        printf("\n");
+        printf("Distância mínima: %.2f\n", dist[destinoIdx]);
+        exibir_instrucoes(grafo, anterior, destinoIdx, origemIdx);
     }
 
     free(dist);
@@ -107,4 +103,43 @@ void gerar_relatorio(Grafo* grafo, char origem, char destino, const char* arquiv
     }
     fprintf(arquivo, "Relatório de caminho entre %c e %c.\n", origem, destino);
     fclose(arquivo);
+}
+
+
+void exibir_instrucoes(Grafo* grafo, int* anterior, int destinoIdx, int origemIdx) {
+    if (anterior[destinoIdx] == -1) {
+        printf("Não há caminho entre %c e %c.\n", grafo->pontos[origemIdx].id, grafo->pontos[destinoIdx].id);
+        return;
+    }
+
+    printf("Para realizar o percurso entre o ponto %c (%s com %s) e o ponto %c (%s com %s), faça os seguintes movimentos:\n",
+           grafo->pontos[origemIdx].id, grafo->pontos[origemIdx].rua1, grafo->pontos[origemIdx].rua2,
+           grafo->pontos[destinoIdx].id, grafo->pontos[destinoIdx].rua1, grafo->pontos[destinoIdx].rua2);
+
+    // Reconstruir o caminho do destino até a origem
+    int atual = destinoIdx;
+    int passos = 1;
+
+    while (atual != origemIdx) {
+        int anteriorIdx = anterior[atual];
+        Aresta* aresta = NULL;
+
+        // Encontrar a aresta que conecta 'anteriorIdx' e 'atual'
+        for (int i = 0; i < grafo->numArestas; i++) {
+            if (grafo->arestas[i].origem == grafo->pontos[anteriorIdx].id &&
+                grafo->arestas[i].destino == grafo->pontos[atual].id) {
+                aresta = &grafo->arestas[i];
+                break;
+            }
+        }
+
+        if (aresta) {
+            printf("(%d) Siga em frente pela %s até o cruzamento com a %s.\n",
+                   passos, aresta->nomeRua, grafo->pontos[atual].rua1);
+            passos++;
+        }
+        atual = anteriorIdx;
+    }
+
+    printf("Boa viagem!\n");
 }

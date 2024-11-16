@@ -12,14 +12,8 @@ int main(int argc, char* argv[]) {
     char destino = argv[4][0];
 
     Grafo* grafo = inicializa_grafo(pontosBin, vizinhosBin);
-     listar_pontos(grafo);
-
- 
-    
+    listar_pontos(grafo);
     dijkstra(grafo, origem, destino);
-    gerar_relatorio(grafo, origem, destino, "relatorio.txt");
-
-    printf("Relatório gerado com sucesso em relatorio.txt\n");
 
     free(grafo->pontos);
     free(grafo->arestas);
@@ -27,3 +21,4 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
+
