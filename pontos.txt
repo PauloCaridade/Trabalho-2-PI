@@ -1,0 +1,48 @@
+A 
+10.0 60.0 
+Rua Alecrim 
+Rua Primavera 
+B 
+30.0 60.0 
+Rua Alecrim 
+Rua Lavanda 
+C 
+50.0 60.0 
+Rua Alecrim 
+Rua Hortênsia 
+D 
+80.0 60.0 
+Rua Alecrim 
+Rua Bromélia 
+E 
+50.0 50.0 
+Rua Jacarandá 
+Rua Hortênsia 
+F 
+80.0 50.0 
+Rua Jacarandá 
+Rua Bromélia 
+G 
+10.0 30.0 
+Rua Camélia 
+Rua Primavera 
+H 
+30.0 30.0 
+Rua Camélia 
+Rua Lavanda 
+I 
+50.0 30.0 
+Rua Camélia 
+Rua Hortênsia 
+J 
+10.0 5.0 
+Rua Margarida 
+Rua Primavera 
+K 
+50.0 5.0 
+Rua Margarida 
+Rua Hortênsia 
+L 
+80.0 5.0 
+Rua Margarida 
+Rua Bromélia
